@@ -1,0 +1,52 @@
+theme:
+  background:
+    color: gray
+  text:
+    color: black
+    size: 9pt
+    font-family: Helvetica
+
+octets-per-line: 4
+x-axis:
+  bits:
+    direction: left-to-right
+    unit: 32
+    origin: 0
+
+y-axis:
+  octets:
+    show: true
+
+placements:
+  - label: Version
+    bits: 4
+  - label: IHL
+    bits: 4
+  - label: DSCP
+    bits: 6
+  - label: "ECN"
+    bits: 2
+  - label: "Total Length"
+    bits: 16
+  - label: Identification
+    bits: 16
+  - label: Flags
+    bits: 3
+  - label: "Fragment Offset"
+    bits: 13
+  - label: "Time To Live"
+    bits: 8
+  - label: Protocol
+    bits: 8
+  - label: "Header Checksum"
+    bits: 16
+  - label: "Source IP Address"
+    bits: 32
+  - label: "Destination IP Address"
+    bits: 32
+  - label: Options
+    variable-length: true
+    bits: 64
+  - label: Data
+    variable-length: true
+    bits: 96
