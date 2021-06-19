@@ -22,115 +22,84 @@ func Draw(def *Definition, out io.Writer) error {
 	return nil
 }
 
-type Dimensions struct {
-	Canvas Dimension
-	XAxis  Dimension
-	YAxis  Dimension
-	Cell   Dimension
-}
-
-type Dimension struct {
-	Width  int
-	Height int
-}
-
-func calculateDimensions(def *Definition) Dimensions {
-	return Dimensions{
-		Canvas: Dimension{
-			Width:  1100,
-			Height: 500,
-		},
-		XAxis: Dimension{
-			Width:  1000,
-			Height: 30,
-		},
-		YAxis: Dimension{
-			Width:  50,
-			Height: 500,
-		},
-		Cell: Dimension{
-			Width:  30,
-			Height: 30,
-		},
-	}
-}
-
-func defineStyles(def *Definition, dim Dimensions, canvas *svg.SVG) {
-	defineStyleForXAxisBits(def, dim, canvas)
-	defineStyleForPlacements(def, dim, canvas)
-	defineStyleForBreakMark(def, dim, canvas)
-}
-
-func defineStyleForXAxisBits(def *Definition, dim Dimensions, canvas *svg.SVG) {
-	canvas.Style("text/css", fmt.Sprintf(`
-text.bit{
-	fill:%s;
-	font-size:%s;
-	text-anchor:middle;
-}`,
-		def.GetTextColor(),
-		def.GetTextSize(),
-	),
-	)
-}
-
-func defineStyleForPlacements(def *Definition, dim Dimensions, canvas *svg.SVG) {
-	canvas.Style("text/css", fmt.Sprintf(`
-polygon.placement{
-	fill:white;
-	stroke:black;
-}
-
-text.placement{
-	fill:%s;
-	font-family:%s;
-	font-size:%s;
-	text-anchor:middle;
-}`,
-		def.GetTextColor(),
-		def.GetTextFontFamily(),
-		def.GetTextSize(),
-	),
-	)
-}
-
-func defineStyleForBreakMark(def *Definition, dim Dimensions, canvas *svg.SVG) {
-	canvas.Style("text/css", fmt.Sprintf(`
-path.breakmark{
-	fill:none;
-	stroke:black;
-}`,
-		def.GetTextColor(),
-		def.GetTextFontFamily(),
-		def.GetTextSize(),
-	),
-	)
-}
-
 func drawBackground(def *Definition, dim Dimensions, canvas *svg.SVG) {
 	canvas.Rect(0, 0, int(dim.Canvas.Width), int(dim.Canvas.Height), "id='background'", fmt.Sprintf("fill='%s'", def.GetBackgroundColor()), "stroke='none'")
 }
 
 func drawXAxis(def *Definition, dim Dimensions, canvas *svg.SVG) {
-	if def.ShouldShowXAxisBits() {
-		drawXAxisBits(def, dim, canvas)
-	}
 	if def.ShouldShowXAxisOctets() {
 		drawXAxisOctets(def, dim, canvas)
+	}
+	if def.ShouldShowXAxisBits() {
+		drawXAxisBits(def, dim, canvas)
 	}
 }
 
 func drawXAxisBits(def *Definition, dim Dimensions, canvas *svg.SVG) {
 	xs, ys, labels := calculateXAxisBitLabelDimensions(def, dim)
-
+	h := int(def.GetXAxisBitsHeight())
+	cw := dim.Cell.Width
+	lox := cw / 2
+	loy := int(def.GetXAxisBitsHeight() * 3 / 4)
 	for i := range xs {
-		canvas.Text(xs[i], ys[i], labels[i], `class="bit"`)
+		canvas.Line(xs[i], ys[i], xs[i], ys[i]+h, `class="x-bit"`)
+		canvas.Text(xs[i]+lox, ys[i]+loy, labels[i], `class="x-bit"`)
 	}
-	canvas.Text(xs[len(xs)-1]+dim.Cell.Width, ys[len(ys)-1], "bit", `class="bit"`)
+
+	last := len(xs) - 1
+	xlast := xs[last]
+	ylast := ys[last]
+	canvas.Line(xlast+cw, ylast, xlast+cw, ylast+h, `class="x-bit"`)
+	canvas.Text(xlast+cw+lox, ylast+loy, "bit", `class="x-bit"`, "text-anchor:start")
 }
 
 func calculateXAxisBitLabelDimensions(def *Definition, dim Dimensions) (xs []int, ys []int, labels []string) {
 	count := int(def.OctetsPerLine * 8)
+
+	h := int(def.GetXAxisBitsHeight())
+	cw := int(dim.Cell.Width)
+	o := def.GetXAxisBitsOrigin()
+	u := int(def.GetXAxisBitsUnit())
+	startX := int(dim.YAxis.Width)
+
+	xs = make([]int, count)
+	ys = make([]int, count)
+	labels = make([]string, count)
+
+	for i := 0; i < count; i++ {
+		xs[i] = startX + (i * cw)
+		ys[i] = dim.XAxis.Height - h
+		if def.GetXAxisBitsDirection() == XAxisBitsDirectionLeftToRight {
+			labels[i] = fmt.Sprintf("%d", o+(i%u))
+		} else {
+			labels[i] = fmt.Sprintf("%d", o+(u-(i%u)))
+		}
+	}
+	return
+}
+
+func drawXAxisOctets(def *Definition, dim Dimensions, canvas *svg.SVG) {
+	xs, ys, labels := calculateXAxisOctetLabelDimensions(def, dim)
+	h := int(def.GetXAxisBitsHeight())
+	cw := dim.Cell.Width
+	lox := cw * 4                                // label offset x
+	loy := int(def.GetXAxisBitsHeight()) * 3 / 4 // label offset y
+	for i := range xs {
+		canvas.Line(xs[i], ys[i], xs[i], ys[i]+h, `class="x-bit"`)
+		canvas.Text(xs[i]+lox, ys[i]+loy, labels[i], `class="x-octet"`)
+	}
+
+	last := len(xs) - 1
+	xlast := xs[last]
+	ylast := ys[last]
+	canvas.Line(xlast+(cw*8), ylast, xlast+(cw*8), ylast+h, `class="x-bit"`)
+	canvas.Text(dim.YAxis.Width+cw*(int(def.GetBitsPerLine()))+cw/2, ys[0]+loy, "octet", `class="x-octet"`, "text-anchor:start")
+}
+
+func calculateXAxisOctetLabelDimensions(def *Definition, dim Dimensions) (xs []int, ys []int, labels []string) {
+	count := int(def.OctetsPerLine)
+
+	cw := int(dim.Cell.Width)
 
 	xs = make([]int, count)
 	ys = make([]int, count)
@@ -138,15 +107,11 @@ func calculateXAxisBitLabelDimensions(def *Definition, dim Dimensions) (xs []int
 
 	startX := int(dim.YAxis.Width)
 	for i := 0; i < count; i++ {
-		xs[i] = startX + (i * int(dim.Cell.Width)) + (dim.Cell.Width / 2)
-		ys[i] = int(dim.Cell.Height) - 4
-		labels[i] = fmt.Sprintf("%d", i+int(def.GetXAxisBitsOrigin()))
+		xs[i] = startX + (i * cw * 8)
+		ys[i] = 0
+		labels[i] = fmt.Sprintf("%d", i)
 	}
 	return
-}
-
-func drawXAxisOctets(def *Definition, dim Dimensions, canvas *svg.SVG) {
-
 }
 
 func drawYAxis(def *Definition, dim Dimensions, canvas *svg.SVG) {
@@ -212,33 +177,6 @@ func getBreakMarkPoints(x, y int) (sx, sy, cx, cy, px, py, ex, ey int) {
 func drawPlacementText(def *Definition, dim Dimensions, p Placement, polygon Polygon, canvas *svg.SVG) {
 	left, top, right, bottom := polygon.findBoundingBox()
 	canvas.Text((left+right)/2, ((top+bottom)/2)+(dim.Cell.Height/6), p.Label, `class="placement"`)
-}
-
-type Polygon struct {
-	xs []int
-	ys []int
-}
-
-func (p Polygon) findBoundingBox() (left int, top int, right int, bottom int) {
-	left = p.xs[0]
-	top = p.ys[0]
-	right = p.xs[0]
-	bottom = p.ys[0]
-	for i := range p.xs {
-		if p.xs[i] < left {
-			left = p.xs[i]
-		}
-		if right < p.xs[i] {
-			right = p.xs[i]
-		}
-		if p.ys[i] < top {
-			top = p.ys[i]
-		}
-		if bottom < p.ys[i] {
-			bottom = p.ys[i]
-		}
-	}
-	return
 }
 
 func getPlacementPolygons(def *Definition, dim Dimensions, cur *Cursor, p Placement) []Polygon {

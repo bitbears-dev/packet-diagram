@@ -6,6 +6,18 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+const (
+	defaultBackgroundColor    = "white"
+	defaultTextColor          = "black"
+	defaultTextSize           = "16pt"
+	defaultTextFontFamily     = "Sans Serif"
+	defaultOctetsPerLine      = 4
+	defaultXAxisBitsHeight    = 20
+	defaultXAxisBitsDirection = XAxisBitsDirectionLeftToRight
+	defaultXAxisBitsUnit      = 32
+	defaultXAxisBitsOrigin    = 0
+)
+
 type Definition struct {
 	Theme         *ThemeSpec    `yaml:"theme,omitempty"`
 	OctetsPerLine OctetsPerLine `yaml:"octets-per-line"`
@@ -24,23 +36,13 @@ type BackgroundSpec struct {
 	Color string `yaml:"color"`
 }
 
-const defaultBackgroundColor = "white"
-
 type TextSpec struct {
 	Color      string `yaml:"color"`
 	Size       string `yaml:"size"`
 	FontFamily string `yaml:"font-family"`
 }
 
-const defaultTextColor = "black"
-const defaultTextSize = "16pt"
-const defaultTextFontFamily = "Sans Serif"
-
 type OctetsPerLine uint
-
-const (
-	FourOctetsPerLine OctetsPerLine = 4
-)
 
 type XAxisSpec struct {
 	Bits   *XAxisBitsSpec   `yaml:"bits,omitempty"`
@@ -53,10 +55,11 @@ type YAxisSpec struct {
 }
 
 type XAxisBitsSpec struct {
-	Show      *bool              `yaml:"show,omitempty"`
-	Direction XAxisBitsDirection `yaml:"direction"`
-	Origin    uint               `yaml:"origin"`
-	Unit      XAxisBitsUnit      `yaml:"unit"`
+	Show      *bool               `yaml:"show,omitempty"`
+	Height    *uint               `yaml:"height,omitempty"`
+	Direction *XAxisBitsDirection `yaml:"direction,omitempty"`
+	Origin    *uint               `yaml:"origin,omitempty"`
+	Unit      *XAxisBitsUnit      `yaml:"unit,omitempty"`
 }
 
 type XAxisBitsDirection string
@@ -101,15 +104,42 @@ func LoadDefinition(r io.Reader) (*Definition, error) {
 }
 
 func (d *Definition) GetBitsPerLine() int {
+	if d.OctetsPerLine == 0 {
+		return defaultOctetsPerLine
+	}
 	return int(d.OctetsPerLine) * 8
 }
 
-func (d *Definition) GetXAxisBitsOrigin() int {
-	if d.XAxis.Bits == nil {
-		return 0
+func (d *Definition) GetXAxisBitsHeight() uint {
+	if d.XAxis.Bits == nil || d.XAxis.Bits.Height == nil {
+		return defaultXAxisBitsHeight
 	}
 
-	return int(d.XAxis.Bits.Origin)
+	return *d.XAxis.Bits.Height
+}
+
+func (d *Definition) GetXAxisBitsDirection() XAxisBitsDirection {
+	if d.XAxis.Bits == nil || d.XAxis.Bits.Direction == nil {
+		return defaultXAxisBitsDirection
+	}
+
+	return *d.XAxis.Bits.Direction
+}
+
+func (d *Definition) GetXAxisBitsUnit() XAxisBitsUnit {
+	if d.XAxis.Bits == nil || d.XAxis.Bits.Unit == nil {
+		return defaultXAxisBitsUnit
+	}
+
+	return *d.XAxis.Bits.Unit
+}
+
+func (d *Definition) GetXAxisBitsOrigin() int {
+	if d.XAxis.Bits == nil || d.XAxis.Bits.Origin == nil {
+		return defaultXAxisBitsOrigin
+	}
+
+	return int(*d.XAxis.Bits.Origin)
 }
 
 func (d *Definition) ShouldShowXAxisBits() bool {

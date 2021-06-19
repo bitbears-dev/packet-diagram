@@ -12,6 +12,8 @@ x-axis:
     direction: left-to-right
     unit: 32
     origin: 0
+  octets:
+    show: true
 
 y-axis:
   octets:

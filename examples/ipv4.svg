@@ -5,109 +5,126 @@
      xmlns:xlink="http://www.w3.org/1999/xlink">
 <style type="text/css">
 <![CDATA[
+text.x-bit{fill:black;font-size:9pt;text-anchor: middle;}line.x-bit{stroke:black;}
+text.x-octet{fill:black;font-size:9pt;text-anchor: middle;}line.x-octet{stroke:black;}
+polygon.placement{fill:white;stroke:black;}text.placement{fill:black;font-family:Helvetica;font-size:9pt;text-anchor:middle;}
+path.breakmark{fill:none;stroke:black;}
 
-text.bit{
-	fill:black;
-	font-size:9pt;
-	text-anchor:middle;
-}
-]]>
-</style>
-<style type="text/css">
-<![CDATA[
-
-polygon.placement{
-	fill:white;
-	stroke:black;
-}
-
-text.placement{
-	fill:black;
-	font-family:Helvetica;
-	font-size:9pt;
-	text-anchor:middle;
-}
-]]>
-</style>
-<style type="text/css">
-<![CDATA[
-
-path.breakmark{
-	fill:none;
-	stroke:black;
-}%!(EXTRA string=black, string=Helvetica, string=9pt)
 ]]>
 </style>
 <rect x="0" y="0" width="1100" height="500" id='background' fill='gray' stroke='none' />
-<text x="65" y="26" class="bit" >0</text>
-<text x="95" y="26" class="bit" >1</text>
-<text x="125" y="26" class="bit" >2</text>
-<text x="155" y="26" class="bit" >3</text>
-<text x="185" y="26" class="bit" >4</text>
-<text x="215" y="26" class="bit" >5</text>
-<text x="245" y="26" class="bit" >6</text>
-<text x="275" y="26" class="bit" >7</text>
-<text x="305" y="26" class="bit" >8</text>
-<text x="335" y="26" class="bit" >9</text>
-<text x="365" y="26" class="bit" >10</text>
-<text x="395" y="26" class="bit" >11</text>
-<text x="425" y="26" class="bit" >12</text>
-<text x="455" y="26" class="bit" >13</text>
-<text x="485" y="26" class="bit" >14</text>
-<text x="515" y="26" class="bit" >15</text>
-<text x="545" y="26" class="bit" >16</text>
-<text x="575" y="26" class="bit" >17</text>
-<text x="605" y="26" class="bit" >18</text>
-<text x="635" y="26" class="bit" >19</text>
-<text x="665" y="26" class="bit" >20</text>
-<text x="695" y="26" class="bit" >21</text>
-<text x="725" y="26" class="bit" >22</text>
-<text x="755" y="26" class="bit" >23</text>
-<text x="785" y="26" class="bit" >24</text>
-<text x="815" y="26" class="bit" >25</text>
-<text x="845" y="26" class="bit" >26</text>
-<text x="875" y="26" class="bit" >27</text>
-<text x="905" y="26" class="bit" >28</text>
-<text x="935" y="26" class="bit" >29</text>
-<text x="965" y="26" class="bit" >30</text>
-<text x="995" y="26" class="bit" >31</text>
-<text x="1025" y="26" class="bit" >bit</text>
-<polygon points="50,30 170,30 170,60 50,60 50,30" class="placement" />
-<text x="110" y="50" class="placement" >Version</text>
-<polygon points="170,30 290,30 290,60 170,60 170,30" class="placement" />
-<text x="230" y="50" class="placement" >IHL</text>
-<polygon points="290,30 470,30 470,60 290,60 290,30" class="placement" />
-<text x="380" y="50" class="placement" >DSCP</text>
-<polygon points="470,30 530,30 530,60 470,60 470,30" class="placement" />
-<text x="500" y="50" class="placement" >ECN</text>
-<polygon points="530,30 1010,30 1010,60 530,60 530,30" class="placement" />
-<text x="770" y="50" class="placement" >Total Length</text>
-<polygon points="50,60 530,60 530,90 50,90 50,60" class="placement" />
-<text x="290" y="80" class="placement" >Identification</text>
-<polygon points="530,60 620,60 620,90 530,90 530,60" class="placement" />
-<text x="575" y="80" class="placement" >Flags</text>
-<polygon points="620,60 1010,60 1010,90 620,90 620,60" class="placement" />
-<text x="815" y="80" class="placement" >Fragment Offset</text>
-<polygon points="50,90 290,90 290,120 50,120 50,90" class="placement" />
-<text x="170" y="110" class="placement" >Time To Live</text>
-<polygon points="290,90 530,90 530,120 290,120 290,90" class="placement" />
-<text x="410" y="110" class="placement" >Protocol</text>
-<polygon points="530,90 1010,90 1010,120 530,120 530,90" class="placement" />
-<text x="770" y="110" class="placement" >Header Checksum</text>
-<polygon points="50,120 1010,120 1010,150 50,150 50,120" class="placement" />
-<text x="530" y="140" class="placement" >Source IP Address</text>
-<polygon points="50,150 1010,150 1010,180 50,180 50,150" class="placement" />
-<text x="530" y="170" class="placement" >Destination IP Address</text>
-<polygon points="50,180 1010,180 1010,240 50,240 50,210 50,210 50,180" class="placement" />
-<path d="M40,207 C50,197 50,217 60,207" class="breakmark" />
-<path d="M40,213 C50,203 50,223 60,213" class="breakmark" />
-<path d="M1000,207 C1010,197 1010,217 1020,207" class="breakmark" />
-<path d="M1000,213 C1010,203 1010,223 1020,213" class="breakmark" />
-<text x="530" y="215" class="placement" >Options</text>
-<polygon points="50,240 1010,240 1010,330 50,330 50,270 50,270 50,240" class="placement" />
-<path d="M40,282 C50,272 50,292 60,282" class="breakmark" />
-<path d="M40,288 C50,278 50,298 60,288" class="breakmark" />
-<path d="M1000,282 C1010,272 1010,292 1020,282" class="breakmark" />
-<path d="M1000,288 C1010,278 1010,298 1020,288" class="breakmark" />
-<text x="530" y="290" class="placement" >Data</text>
+<line x1="50" y1="0" x2="50" y2="20" class="x-bit" />
+<text x="170" y="15" class="x-octet" >0</text>
+<line x1="290" y1="0" x2="290" y2="20" class="x-bit" />
+<text x="410" y="15" class="x-octet" >1</text>
+<line x1="530" y1="0" x2="530" y2="20" class="x-bit" />
+<text x="650" y="15" class="x-octet" >2</text>
+<line x1="770" y1="0" x2="770" y2="20" class="x-bit" />
+<text x="890" y="15" class="x-octet" >3</text>
+<line x1="1010" y1="0" x2="1010" y2="20" class="x-bit" />
+<text x="1025" y="15" class="x-octet" style="text-anchor:start" >octet</text>
+<line x1="50" y1="20" x2="50" y2="40" class="x-bit" />
+<text x="65" y="35" class="x-bit" >0</text>
+<line x1="80" y1="20" x2="80" y2="40" class="x-bit" />
+<text x="95" y="35" class="x-bit" >1</text>
+<line x1="110" y1="20" x2="110" y2="40" class="x-bit" />
+<text x="125" y="35" class="x-bit" >2</text>
+<line x1="140" y1="20" x2="140" y2="40" class="x-bit" />
+<text x="155" y="35" class="x-bit" >3</text>
+<line x1="170" y1="20" x2="170" y2="40" class="x-bit" />
+<text x="185" y="35" class="x-bit" >4</text>
+<line x1="200" y1="20" x2="200" y2="40" class="x-bit" />
+<text x="215" y="35" class="x-bit" >5</text>
+<line x1="230" y1="20" x2="230" y2="40" class="x-bit" />
+<text x="245" y="35" class="x-bit" >6</text>
+<line x1="260" y1="20" x2="260" y2="40" class="x-bit" />
+<text x="275" y="35" class="x-bit" >7</text>
+<line x1="290" y1="20" x2="290" y2="40" class="x-bit" />
+<text x="305" y="35" class="x-bit" >8</text>
+<line x1="320" y1="20" x2="320" y2="40" class="x-bit" />
+<text x="335" y="35" class="x-bit" >9</text>
+<line x1="350" y1="20" x2="350" y2="40" class="x-bit" />
+<text x="365" y="35" class="x-bit" >10</text>
+<line x1="380" y1="20" x2="380" y2="40" class="x-bit" />
+<text x="395" y="35" class="x-bit" >11</text>
+<line x1="410" y1="20" x2="410" y2="40" class="x-bit" />
+<text x="425" y="35" class="x-bit" >12</text>
+<line x1="440" y1="20" x2="440" y2="40" class="x-bit" />
+<text x="455" y="35" class="x-bit" >13</text>
+<line x1="470" y1="20" x2="470" y2="40" class="x-bit" />
+<text x="485" y="35" class="x-bit" >14</text>
+<line x1="500" y1="20" x2="500" y2="40" class="x-bit" />
+<text x="515" y="35" class="x-bit" >15</text>
+<line x1="530" y1="20" x2="530" y2="40" class="x-bit" />
+<text x="545" y="35" class="x-bit" >16</text>
+<line x1="560" y1="20" x2="560" y2="40" class="x-bit" />
+<text x="575" y="35" class="x-bit" >17</text>
+<line x1="590" y1="20" x2="590" y2="40" class="x-bit" />
+<text x="605" y="35" class="x-bit" >18</text>
+<line x1="620" y1="20" x2="620" y2="40" class="x-bit" />
+<text x="635" y="35" class="x-bit" >19</text>
+<line x1="650" y1="20" x2="650" y2="40" class="x-bit" />
+<text x="665" y="35" class="x-bit" >20</text>
+<line x1="680" y1="20" x2="680" y2="40" class="x-bit" />
+<text x="695" y="35" class="x-bit" >21</text>
+<line x1="710" y1="20" x2="710" y2="40" class="x-bit" />
+<text x="725" y="35" class="x-bit" >22</text>
+<line x1="740" y1="20" x2="740" y2="40" class="x-bit" />
+<text x="755" y="35" class="x-bit" >23</text>
+<line x1="770" y1="20" x2="770" y2="40" class="x-bit" />
+<text x="785" y="35" class="x-bit" >24</text>
+<line x1="800" y1="20" x2="800" y2="40" class="x-bit" />
+<text x="815" y="35" class="x-bit" >25</text>
+<line x1="830" y1="20" x2="830" y2="40" class="x-bit" />
+<text x="845" y="35" class="x-bit" >26</text>
+<line x1="860" y1="20" x2="860" y2="40" class="x-bit" />
+<text x="875" y="35" class="x-bit" >27</text>
+<line x1="890" y1="20" x2="890" y2="40" class="x-bit" />
+<text x="905" y="35" class="x-bit" >28</text>
+<line x1="920" y1="20" x2="920" y2="40" class="x-bit" />
+<text x="935" y="35" class="x-bit" >29</text>
+<line x1="950" y1="20" x2="950" y2="40" class="x-bit" />
+<text x="965" y="35" class="x-bit" >30</text>
+<line x1="980" y1="20" x2="980" y2="40" class="x-bit" />
+<text x="995" y="35" class="x-bit" >31</text>
+<line x1="1010" y1="20" x2="1010" y2="40" class="x-bit" />
+<text x="1025" y="35" class="x-bit" style="text-anchor:start" >bit</text>
+<polygon points="50,40 170,40 170,70 50,70 50,40" class="placement" />
+<text x="110" y="60" class="placement" >Version</text>
+<polygon points="170,40 290,40 290,70 170,70 170,40" class="placement" />
+<text x="230" y="60" class="placement" >IHL</text>
+<polygon points="290,40 470,40 470,70 290,70 290,40" class="placement" />
+<text x="380" y="60" class="placement" >DSCP</text>
+<polygon points="470,40 530,40 530,70 470,70 470,40" class="placement" />
+<text x="500" y="60" class="placement" >ECN</text>
+<polygon points="530,40 1010,40 1010,70 530,70 530,40" class="placement" />
+<text x="770" y="60" class="placement" >Total Length</text>
+<polygon points="50,70 530,70 530,100 50,100 50,70" class="placement" />
+<text x="290" y="90" class="placement" >Identification</text>
+<polygon points="530,70 620,70 620,100 530,100 530,70" class="placement" />
+<text x="575" y="90" class="placement" >Flags</text>
+<polygon points="620,70 1010,70 1010,100 620,100 620,70" class="placement" />
+<text x="815" y="90" class="placement" >Fragment Offset</text>
+<polygon points="50,100 290,100 290,130 50,130 50,100" class="placement" />
+<text x="170" y="120" class="placement" >Time To Live</text>
+<polygon points="290,100 530,100 530,130 290,130 290,100" class="placement" />
+<text x="410" y="120" class="placement" >Protocol</text>
+<polygon points="530,100 1010,100 1010,130 530,130 530,100" class="placement" />
+<text x="770" y="120" class="placement" >Header Checksum</text>
+<polygon points="50,130 1010,130 1010,160 50,160 50,130" class="placement" />
+<text x="530" y="150" class="placement" >Source IP Address</text>
+<polygon points="50,160 1010,160 1010,190 50,190 50,160" class="placement" />
+<text x="530" y="180" class="placement" >Destination IP Address</text>
+<polygon points="50,190 1010,190 1010,250 50,250 50,220 50,220 50,190" class="placement" />
+<path d="M40,217 C50,207 50,227 60,217" class="breakmark" />
+<path d="M40,223 C50,213 50,233 60,223" class="breakmark" />
+<path d="M1000,217 C1010,207 1010,227 1020,217" class="breakmark" />
+<path d="M1000,223 C1010,213 1010,233 1020,223" class="breakmark" />
+<text x="530" y="225" class="placement" >Options</text>
+<polygon points="50,250 1010,250 1010,340 50,340 50,280 50,280 50,250" class="placement" />
+<path d="M40,292 C50,282 50,302 60,292" class="breakmark" />
+<path d="M40,298 C50,288 50,308 60,298" class="breakmark" />
+<path d="M1000,292 C1010,282 1010,302 1020,292" class="breakmark" />
+<path d="M1000,298 C1010,288 1010,308 1020,298" class="breakmark" />
+<text x="530" y="300" class="placement" >Data</text>
 </svg>

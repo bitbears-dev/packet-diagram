@@ -1,0 +1,61 @@
+theme:
+  background:
+    color: gray
+  text:
+    color: black
+    size: 9pt
+    font-family: Helvetica
+
+octets-per-line: 4
+x-axis:
+  bits:
+    direction: right-to-left
+    unit: 8
+    origin: 0
+  octets:
+    show: true
+
+y-axis:
+  octets:
+    show: true
+
+placements:
+  - label: Source port
+    bits: 16
+  - label: Destination port
+    bits: 16
+  - label: Sequence number
+    bits: 32
+  - label: Acknowledgement number (if ACK set)
+    bits: 32
+  - label: Data offset
+    bits: 4
+  - label: Reserved
+    bits: 3
+  - label: NS
+    bits: 1
+  - label: CWR
+    bits: 1
+  - label: ECE
+    bits: 1
+  - label: URG
+    bits: 1
+  - label: ACK
+    bits: 1
+  - label: PSH
+    bits: 1
+  - label: RST
+    bits: 1
+  - label: SYN
+    bits: 1
+  - label: FIN
+    bits: 1
+  - label: Window size
+    bits: 16
+  - label: Checksum
+    bits: 16
+  - label: Urgent pointer (if URG set)
+    bits: 16
+  - label: Options (if data offset > 5. Padded at the end with "0" bytes if neccessary.)
+    variable-length: true
+    bits: 320

@@ -72,7 +72,7 @@ func TestCalculateXAxisBitLabelDimensions(t *testing.T) {
 				OctetsPerLine: 4,
 				XAxis: XAxisSpec{
 					Bits: &XAxisBitsSpec{
-						Origin: 1,
+						Origin: uintp(1),
 					},
 				},
 			},
@@ -102,4 +102,8 @@ func TestCalculateXAxisBitLabelDimensions(t *testing.T) {
 			assert.Equal(t, data.ExpectedLabels, labels)
 		})
 	}
+}
+
+func uintp(u uint) *uint {
+	return &u
 }

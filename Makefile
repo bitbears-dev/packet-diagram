@@ -2,7 +2,7 @@
 
 subdirs=cmd/packet-diagram
 
-build: 
+build:
 	for dir in $(subdirs); do $(MAKE) -C "$$dir" $@; done
 
 test:
@@ -13,3 +13,9 @@ e2e-test:
 
 clean:
 	for dir in $(subdirs); do $(MAKE) -C "$$dir" $@; done
+
+generate-examples: build
+	$(MAKE) -C examples build
+
+clean-examples:
+	$(MAKE) -C examples clean
