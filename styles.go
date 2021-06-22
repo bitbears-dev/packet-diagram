@@ -10,6 +10,8 @@ import (
 func defineStyles(def *Definition, dim Dimensions, canvas *svg.SVG) {
 	style := getStyleForXAxisBits(def, dim) + "\n"
 	style += getStyleForXAxisOctets(def, dim) + "\n"
+	style += getStyleForYAxisBits(def, dim) + "\n"
+	style += getStyleForYAxisOctets(def, dim) + "\n"
 	style += getStyleForPlacements(def, dim) + "\n"
 	style += getStyleForBreakMark(def, dim) + "\n"
 	canvas.Style("text/css", style)
@@ -29,11 +31,18 @@ text.x-bit{
 	font-size:%s;
 	text-anchor: middle;
 }
+text.x-bit-title{
+	fill:%s;
+	font-size:%s;
+	text-anchor: start;
+}
 line.x-bit{
 	stroke:black;
 }`,
 		def.GetTextColor(),
 		def.GetTextSize(),
+		def.GetTextColor(),
+		def.GetAxisTitleTextSize(),
 	))
 }
 
@@ -44,11 +53,62 @@ text.x-octet{
 	font-size:%s;
 	text-anchor: middle;
 }
+text.x-octet-title{
+	fill:%s;
+	font-size:%s;
+	text-anchor: start;
+}
 line.x-octet{
 	stroke:black;
 }`,
 		def.GetTextColor(),
 		def.GetTextSize(),
+		def.GetTextColor(),
+		def.GetAxisTitleTextSize(),
+	))
+}
+
+func getStyleForYAxisBits(def *Definition, dim Dimensions) string {
+	return shrinkStyle(fmt.Sprintf(`
+text.y-bit{
+	fill:%s;
+	font-size:%s;
+	text-anchor: end;
+}
+text.y-bit-title{
+	fill:%s;
+	font-size:%s;
+	text-anchor: end;
+}
+line.y-bit{
+	stroke:black;
+}`,
+		def.GetTextColor(),
+		def.GetTextSize(),
+		def.GetTextColor(),
+		def.GetAxisTitleTextSize(),
+	))
+}
+
+func getStyleForYAxisOctets(def *Definition, dim Dimensions) string {
+	return shrinkStyle(fmt.Sprintf(`
+text.y-octet{
+	fill:%s;
+	font-size:%s;
+	text-anchor: end;
+}
+text.y-octet-title{
+	fill:%s;
+	font-size:%s;
+	text-anchor: end;
+}
+line.y-octet{
+	stroke:black;
+}`,
+		def.GetTextColor(),
+		def.GetTextSize(),
+		def.GetTextColor(),
+		def.GetAxisTitleTextSize(),
 	))
 }
 

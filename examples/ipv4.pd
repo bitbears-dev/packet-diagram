@@ -18,6 +18,8 @@ x-axis:
 y-axis:
   octets:
     show: true
+  bits:
+    show: true
 
 placements:
   - label: Version
@@ -26,29 +28,26 @@ placements:
     bits: 4
   - label: DSCP
     bits: 6
-  - label: "ECN"
+  - label: ECN
     bits: 2
-  - label: "Total Length"
+  - label: Total Length
     bits: 16
   - label: Identification
     bits: 16
   - label: Flags
     bits: 3
-  - label: "Fragment Offset"
+  - label: Fragment Offset
     bits: 13
-  - label: "Time To Live"
+  - label: Time To Live
     bits: 8
   - label: Protocol
     bits: 8
-  - label: "Header Checksum"
+  - label: Header Checksum
     bits: 16
-  - label: "Source IP Address"
+  - label: Source IP Address
     bits: 32
-  - label: "Destination IP Address"
+  - label: Destination IP Address
     bits: 32
   - label: Options
-    variable-length: true
-    bits: 64
-  - label: Data
-    variable-length: true
-    bits: 96
+    variable-length:
+      max-bits: 320

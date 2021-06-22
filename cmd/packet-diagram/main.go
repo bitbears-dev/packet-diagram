@@ -36,8 +36,6 @@ func run() error {
 		return err
 	}
 
-	log.Printf("definition: %#v", def)
-
 	w := os.Stdout
 	err = packetdiagram.Draw(def, w)
 	if err != nil {

@@ -8,27 +8,60 @@ type Dimensions struct {
 }
 
 type Dimension struct {
-	Width  int
-	Height int
+	Width  uint
+	Height uint
 }
 
 func calculateDimensions(def *Definition) Dimensions {
+	xAxisWidth, xAxisHeight := calculateXAxisDimensions(def)
+	yAxisWidth, yAxisHeight := calculateYAxisDimensions(def)
+	placementWidth := def.GetCellWidth()*def.GetBitsPerLine() + (def.GetBreakMarkWidth() / 2)
+	placementHeight := def.GetCellHeight() * def.GetTotalRows()
+
 	return Dimensions{
 		Canvas: Dimension{
-			Width:  1100,
-			Height: 500,
+			Width:  yAxisWidth + placementWidth,
+			Height: xAxisHeight + placementHeight,
 		},
 		XAxis: Dimension{
-			Width:  1000,
-			Height: 40,
+			Width:  xAxisWidth,
+			Height: xAxisHeight,
 		},
 		YAxis: Dimension{
-			Width:  50,
-			Height: 500,
+			Width:  yAxisWidth,
+			Height: yAxisHeight,
 		},
 		Cell: Dimension{
-			Width:  30,
-			Height: 30,
+			Width:  def.GetCellWidth(),
+			Height: def.GetCellHeight(),
 		},
 	}
+}
+
+func calculateXAxisDimensions(def *Definition) (w, h uint) {
+	w = def.GetCellWidth() * (def.GetBitsPerLine() + uint(2))
+
+	h = 0
+	if def.ShouldShowXAxisBits() {
+		h += def.GetXAxisBitsHeight()
+	}
+	if def.ShouldShowXAxisOctets() {
+		h += def.GetXAxisOctetsHeight()
+	}
+
+	return
+}
+
+func calculateYAxisDimensions(def *Definition) (w, h uint) {
+	w = 0
+	if def.ShouldShowYAxisBits() {
+		w += def.GetYAxisBitsWidth()
+	}
+	if def.ShouldShowYAxisOctets() {
+		w += def.GetYAxisOctetsWidth()
+	}
+
+	h = def.GetCellHeight() * def.GetTotalRows()
+
+	return
 }

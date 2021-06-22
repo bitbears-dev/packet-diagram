@@ -9,10 +9,10 @@ import (
 func TestGetBitDistributions(t *testing.T) {
 	testData := []struct {
 		Name        string
-		BitsPerLine int
+		BitsPerLine uint
 		Cursor      *Cursor
 		Placement   Placement
-		Expected    []int
+		Expected    []uint
 	}{
 		{
 			Name:        "fit in a single line",
@@ -22,9 +22,9 @@ func TestGetBitDistributions(t *testing.T) {
 				y: 0,
 			},
 			Placement: Placement{
-				Bits: 16,
+				Bits: uintp(16),
 			},
-			Expected: []int{16},
+			Expected: []uint{16},
 		},
 	}
 
@@ -51,7 +51,7 @@ func TestCalculateXAxisBitLabelDimensions(t *testing.T) {
 		{
 			Name: "OctetsPerLine=4,BitOrigin=0,YAxisWidth=50,CellDimension=30,30",
 			Definition: &Definition{
-				OctetsPerLine: 4,
+				OctetsPerLine: uintp(4),
 			},
 			Dimensions: Dimensions{
 				YAxis: Dimension{
@@ -69,7 +69,7 @@ func TestCalculateXAxisBitLabelDimensions(t *testing.T) {
 		{
 			Name: "OctetsPerLine=4,BitOrigin=1,YAxisWidth=50,CellDimension=30,30",
 			Definition: &Definition{
-				OctetsPerLine: 4,
+				OctetsPerLine: uintp(4),
 				XAxis: XAxisSpec{
 					Bits: &XAxisBitsSpec{
 						Origin: uintp(1),

@@ -57,5 +57,5 @@ placements:
   - label: Urgent pointer (if URG set)
     bits: 16
   - label: Options (if data offset > 5. Padded at the end with "0" bytes if neccessary.)
-    variable-length: true
-    bits: 320
+    variable-length:
+      max-bits: 320
