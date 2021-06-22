@@ -17,13 +17,13 @@ const (
 	defaultXAxisBitsDirection = XAxisBitsDirectionLeftToRight
 	defaultXAxisBitsUnit      = 32
 	defaultXAxisBitsOrigin    = 0
-	defaultXAxisOctetsHeight  = 25
+	defaultXAxisOctetsHeight  = 20
 	defaultYAxisBitsOrigin    = 0
 	defaultYAxisOctetsOrigin  = 0
 	defaultCellWidth          = 30
 	defaultCellHeight         = 30
-	defaultBreakMarkWidth     = 20
-	defaultBreakMarkHeight    = 20
+	defaultBreakMarkWidth     = 10
+	defaultBreakMarkHeight    = 10
 )
 
 type Definition struct {

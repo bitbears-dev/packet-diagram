@@ -3,6 +3,7 @@ package packetdiagram
 import (
 	"fmt"
 	"io"
+	"log"
 
 	svg "github.com/ajstarks/svgo"
 )
@@ -81,8 +82,8 @@ func drawXAxisOctets(def *Definition, dim Dimensions, canvas *svg.SVG) {
 	xs, ys, labels := calculateXAxisOctetLabelDimensions(def, dim)
 	h := int(def.GetXAxisBitsHeight())
 	cw := int(dim.Cell.Width)
-	lox := int(cw * 4)                           // label offset x
-	loy := int(def.GetXAxisBitsHeight()) * 3 / 4 // label offset y
+	lox := int(cw * 4)                       // label offset x
+	loy := int(def.GetXAxisBitsHeight()) / 2 // label offset y
 	for i := range xs {
 		canvas.Line(xs[i], ys[i], xs[i], ys[i]+h, `class="x-octet"`)
 		canvas.Text(xs[i]+lox, ys[i]+loy, labels[i], `class="x-octet"`)
@@ -144,15 +145,58 @@ func drawYAxisBits(def *Definition, dim Dimensions, canvas *svg.SVG) {
 func calculateYAxisBitLabelDimensions(def *Definition, dim Dimensions) (xs, ys []int, labels []string) {
 	offsetX := int(def.GetYAxisOctetsWidth())
 	offsetY := int(dim.XAxis.Height)
+	ch := dim.Cell.Height
 	xs = make([]int, 0)
 	ys = make([]int, 0)
 	labels = make([]string, 0)
-	totalBits := int(def.GetTotalPlacementBits())
 
-	for curr := int(def.GetYAxisOctetsOrigin()); curr < totalBits; curr += int(def.GetBitsPerLine()) {
-		xs = append(xs, int(offsetX))
-		ys = append(ys, int(offsetY+int(dim.Cell.Height)*(curr/int(def.GetBitsPerLine()))))
-		labels = append(labels, fmt.Sprintf("%d", curr))
+	totalBit := def.GetYAxisBitsOrigin()
+	xs = append(xs, offsetX)
+	ys = append(ys, offsetY)
+	labels = append(labels, fmt.Sprintf("%d", totalBit))
+
+	currBit := uint(0)
+	currRow := uint(0)
+	for i, p := range def.Placements {
+		if p.VariableLength == nil {
+			totalBit += *p.Bits
+			currBit += *p.Bits
+			for currBit >= def.GetBitsPerLine() {
+				currRow++
+				xs = append(xs, offsetX)
+				ys = append(ys, offsetY+int(ch*currRow))
+				labels = append(labels, fmt.Sprintf("%d", totalBit))
+
+				currBit = currBit - def.GetBitsPerLine()
+			}
+		} else {
+			log.Printf("currBit == %d, currRow == %d", currBit, currRow)
+			totalBit += p.VariableLength.MaxBits
+			currBit += p.VariableLength.MaxBits
+			for currBit > def.GetBitsPerLine() {
+				currBit = currBit - def.GetBitsPerLine()
+			}
+
+			currRow++
+			xs = append(xs, offsetX)
+			ys = append(ys, offsetY+int(ch*currRow))
+			labels = append(labels, "︙")
+
+			currRow++
+			xs = append(xs, offsetX)
+			ys = append(ys, offsetY+int(ch*currRow))
+			labels = append(labels, fmt.Sprintf("%d", totalBit-def.GetBitsPerLine()))
+
+			currRow++
+			xs = append(xs, offsetX)
+			ys = append(ys, offsetY+int(ch*currRow))
+			labels = append(labels, fmt.Sprintf("%d", totalBit))
+		}
+		if i == len(def.Placements)-1 {
+			xs = xs[0 : len(xs)-1]
+			ys = ys[0 : len(ys)-1]
+			labels = labels[0 : len(labels)-1]
+		}
 	}
 	return
 }
@@ -179,16 +223,50 @@ func drawYAxisOctets(def *Definition, dim Dimensions, canvas *svg.SVG) {
 func calculateYAxisOctetLabelDimensions(def *Definition, dim Dimensions) (xs, ys []int, labels []string) {
 	offsetX := 0
 	offsetY := int(dim.XAxis.Height)
+	ch := dim.Cell.Height
 	xs = make([]int, 0)
 	ys = make([]int, 0)
 	labels = make([]string, 0)
-	totalOctets := int(def.GetTotalPlacementOctets())
 
-	for curr := int(def.GetYAxisOctetsOrigin()); curr < totalOctets; curr += int(def.GetOctetsPerLine()) {
-		xs = append(xs, int(offsetX))
-		ys = append(ys, int(offsetY+int(dim.Cell.Height)*(curr/int(def.GetOctetsPerLine()))))
-		labels = append(labels, fmt.Sprintf("%d", curr))
+	currOctet := def.GetYAxisOctetsOrigin()
+	currBit := uint(0)
+	currRow := uint(0)
+	for _, p := range def.Placements {
+		if p.VariableLength == nil {
+			currBit += *p.Bits
+			for currBit >= def.GetBitsPerLine() {
+				xs = append(xs, offsetX)
+				ys = append(ys, offsetY+int(ch*currRow))
+				labels = append(labels, fmt.Sprintf("%d", currOctet))
+
+				currBit = currBit - def.GetBitsPerLine()
+				currOctet += def.GetOctetsPerLine()
+				currRow++
+			}
+		} else {
+			log.Printf("currBit == %d, currOctet == %d, currRow == %d", currBit, currOctet, currRow)
+			xs = append(xs, offsetX)
+			ys = append(ys, offsetY+int(ch*currRow))
+			labels = append(labels, fmt.Sprintf("%d", currOctet))
+
+			currBit += p.VariableLength.MaxBits
+			for currBit > def.GetBitsPerLine() {
+				currBit = currBit - def.GetBitsPerLine()
+				currOctet += def.GetOctetsPerLine()
+			}
+
+			currRow++
+			xs = append(xs, offsetX)
+			ys = append(ys, offsetY+int(ch*currRow))
+			labels = append(labels, "︙")
+
+			currRow++
+			xs = append(xs, offsetX)
+			ys = append(ys, offsetY+int(ch*currRow))
+			labels = append(labels, fmt.Sprintf("%d", currOctet))
+		}
 	}
+
 	return
 }
 
@@ -290,6 +368,9 @@ func getBitDistributions(bitsPerLine uint, cur *Cursor, p Placement) []uint {
 		bitsToGo = *p.Bits
 	} else {
 		bitsToGo = p.VariableLength.MaxBits
+		if bitsToGo > bitsPerLine*3 {
+			bitsToGo = bitsPerLine * 3
+		}
 	}
 	availableInCurrentLine := bitsPerLine - cur.x
 
