@@ -127,33 +127,35 @@ path.breakmark{fill:none;stroke:black;}
 <line x1="42" y1="255" x2="72" y2="255" class="y-bit" />
 <text x="67" y="277" class="y-bit" >448</text>
 <line x1="42" y1="285" x2="72" y2="285" class="y-bit" />
-<polygon points="72,45 192,45 192,75 72,75 72,45" class="placement" />
+<text x="67" y="307" class="y-bit" >480</text>
+<line x1="42" y1="315" x2="72" y2="315" class="y-bit" />
+<polygon points="72,45 192,45 192,75 72,75 72,45" class="placement"  />
 <text x="132" y="65" class="placement" >Version</text>
-<polygon points="192,45 312,45 312,75 192,75 192,45" class="placement" />
+<polygon points="192,45 312,45 312,75 192,75 192,45" class="placement"  />
 <text x="252" y="65" class="placement" >IHL</text>
-<polygon points="312,45 492,45 492,75 312,75 312,45" class="placement" />
+<polygon points="312,45 492,45 492,75 312,75 312,45" class="placement"  />
 <text x="402" y="65" class="placement" >DSCP</text>
-<polygon points="492,45 552,45 552,75 492,75 492,45" class="placement" />
+<polygon points="492,45 552,45 552,75 492,75 492,45" class="placement"  />
 <text x="522" y="65" class="placement" >ECN</text>
-<polygon points="552,45 1032,45 1032,75 552,75 552,45" class="placement" />
+<polygon points="552,45 1032,45 1032,75 552,75 552,45" class="placement"  />
 <text x="792" y="65" class="placement" >Total Length</text>
-<polygon points="72,75 552,75 552,105 72,105 72,75" class="placement" />
+<polygon points="72,75 552,75 552,105 72,105 72,75" class="placement"  />
 <text x="312" y="95" class="placement" >Identification</text>
-<polygon points="552,75 642,75 642,105 552,105 552,75" class="placement" />
+<polygon points="552,75 642,75 642,105 552,105 552,75" class="placement"  />
 <text x="597" y="95" class="placement" >Flags</text>
-<polygon points="642,75 1032,75 1032,105 642,105 642,75" class="placement" />
+<polygon points="642,75 1032,75 1032,105 642,105 642,75" class="placement"  />
 <text x="837" y="95" class="placement" >Fragment Offset</text>
-<polygon points="72,105 312,105 312,135 72,135 72,105" class="placement" />
+<polygon points="72,105 312,105 312,135 72,135 72,105" class="placement"  />
 <text x="192" y="125" class="placement" >Time To Live</text>
-<polygon points="312,105 552,105 552,135 312,135 312,105" class="placement" />
+<polygon points="312,105 552,105 552,135 312,135 312,105" class="placement"  />
 <text x="432" y="125" class="placement" >Protocol</text>
-<polygon points="552,105 1032,105 1032,135 552,135 552,105" class="placement" />
+<polygon points="552,105 1032,105 1032,135 552,135 552,105" class="placement"  />
 <text x="792" y="125" class="placement" >Header Checksum</text>
-<polygon points="72,135 1032,135 1032,165 72,165 72,135" class="placement" />
+<polygon points="72,135 1032,135 1032,165 72,165 72,135" class="placement"  />
 <text x="552" y="155" class="placement" >Source IP Address</text>
-<polygon points="72,165 1032,165 1032,195 72,195 72,165" class="placement" />
+<polygon points="72,165 1032,165 1032,195 72,195 72,165" class="placement"  />
 <text x="552" y="185" class="placement" >Destination IP Address</text>
-<polygon points="72,195 1032,195 1032,285 72,285 72,225 72,225 72,195" class="placement" />
+<polygon points="72,195 1032,195 1032,285 72,285 72,225 72,225 72,195" class="placement"  />
 <path d="M67,237 C72,232 72,242 77,237" class="breakmark" />
 <path d="M67,243 C72,238 72,248 77,243" class="breakmark" />
 <path d="M1027,237 C1032,232 1032,242 1037,237" class="breakmark" />

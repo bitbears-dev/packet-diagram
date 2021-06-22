@@ -3,9 +3,9 @@ package packetdiagram
 const (
 	defaultBackgroundColor                = "white"
 	defaultTextColor                      = "black"
-	defaultTextSize                       = "16pt"
+	defaultTextSize                       = "9pt"
 	defaultTextSizeInPixels          uint = 12
-	defaultTextFontFamily                 = "Sans Serif"
+	defaultTextFontFamily                 = "Helvetica"
 	defaultAxisTitleTextSize              = "8pt"
 	defaultAxisTitleTextSizeInPixels uint = 6
 )
@@ -59,7 +59,7 @@ func (t ThemeSpec) GetAxisTitleTextSize() string {
 	if t.Text == nil || t.Text.AxisTitleSize == nil {
 		return defaultAxisTitleTextSize
 	}
-	return *t.Text.Size
+	return *t.Text.AxisTitleSize
 }
 
 var defaultTheme = &ThemeSpec{

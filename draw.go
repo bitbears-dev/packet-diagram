@@ -143,7 +143,10 @@ func drawYAxisBits(def *Definition, dim Dimensions, canvas *svg.SVG) {
 }
 
 func calculateYAxisBitLabelDimensions(def *Definition, dim Dimensions) (xs, ys []int, labels []string) {
-	offsetX := int(def.GetYAxisOctetsWidth())
+	offsetX := 0
+	if def.ShouldShowYAxisOctets() {
+		offsetX = int(def.GetYAxisOctetsWidth())
+	}
 	offsetY := int(dim.XAxis.Height)
 	ch := dim.Cell.Height
 	xs = make([]int, 0)
@@ -157,7 +160,7 @@ func calculateYAxisBitLabelDimensions(def *Definition, dim Dimensions) (xs, ys [
 
 	currBit := uint(0)
 	currRow := uint(0)
-	for i, p := range def.Placements {
+	for _, p := range def.Placements {
 		if p.VariableLength == nil {
 			totalBit += *p.Bits
 			currBit += *p.Bits
@@ -170,7 +173,6 @@ func calculateYAxisBitLabelDimensions(def *Definition, dim Dimensions) (xs, ys [
 				currBit = currBit - def.GetBitsPerLine()
 			}
 		} else {
-			log.Printf("currBit == %d, currRow == %d", currBit, currRow)
 			totalBit += p.VariableLength.MaxBits
 			currBit += p.VariableLength.MaxBits
 			for currBit > def.GetBitsPerLine() {
@@ -192,11 +194,11 @@ func calculateYAxisBitLabelDimensions(def *Definition, dim Dimensions) (xs, ys [
 			ys = append(ys, offsetY+int(ch*currRow))
 			labels = append(labels, fmt.Sprintf("%d", totalBit))
 		}
-		if i == len(def.Placements)-1 {
-			xs = xs[0 : len(xs)-1]
-			ys = ys[0 : len(ys)-1]
-			labels = labels[0 : len(labels)-1]
-		}
+	}
+	if currBit == 0 {
+		xs = xs[0 : len(xs)-1]
+		ys = ys[0 : len(ys)-1]
+		labels = labels[0 : len(labels)-1]
 	}
 	return
 }
@@ -244,7 +246,6 @@ func calculateYAxisOctetLabelDimensions(def *Definition, dim Dimensions) (xs, ys
 				currRow++
 			}
 		} else {
-			log.Printf("currBit == %d, currOctet == %d, currRow == %d", currBit, currOctet, currRow)
 			xs = append(xs, offsetX)
 			ys = append(ys, offsetY+int(ch*currRow))
 			labels = append(labels, fmt.Sprintf("%d", currOctet))
@@ -284,13 +285,19 @@ func drawPlacements(def *Definition, dim Dimensions, canvas *svg.SVG) {
 }
 
 func drawPlacement(def *Definition, dim Dimensions, cur *Cursor, p Placement, index int, canvas *svg.SVG) {
+	log.Printf("placement == %v\n", p)
 	polygons := getPlacementPolygons(def, dim, cur, p)
 	if len(polygons) == 0 {
 		return
 	}
 
 	for _, polygon := range polygons {
-		canvas.Polygon(polygon.xs, polygon.ys, `class="placement"`)
+		style := ""
+		if p.Fill != nil {
+			log.Printf("fill == %s", *p.Fill)
+			style = fmt.Sprintf(`style="fill:%s"`, *p.Fill)
+		}
+		canvas.Polygon(polygon.xs, polygon.ys, `class="placement"`, style)
 		if p.VariableLength != nil {
 			drawBreakMark(def, polygon, canvas)
 		}

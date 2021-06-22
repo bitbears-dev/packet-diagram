@@ -109,43 +109,43 @@ path.breakmark{fill:none;stroke:black;}
 <line x1="0" y1="255" x2="42" y2="255" class="y-bit" />
 <text x="37" y="277" class="y-octet" >56</text>
 <line x1="0" y1="285" x2="42" y2="285" class="y-bit" />
-<polygon points="42,45 522,45 522,75 42,75 42,45" class="placement" />
+<polygon points="42,45 522,45 522,75 42,75 42,45" class="placement"  />
 <text x="282" y="65" class="placement" >Source port</text>
-<polygon points="522,45 1002,45 1002,75 522,75 522,45" class="placement" />
+<polygon points="522,45 1002,45 1002,75 522,75 522,45" class="placement"  />
 <text x="762" y="65" class="placement" >Destination port</text>
-<polygon points="42,75 1002,75 1002,105 42,105 42,75" class="placement" />
+<polygon points="42,75 1002,75 1002,105 42,105 42,75" class="placement"  />
 <text x="522" y="95" class="placement" >Sequence number</text>
-<polygon points="42,105 1002,105 1002,135 42,135 42,105" class="placement" />
+<polygon points="42,105 1002,105 1002,135 42,135 42,105" class="placement"  />
 <text x="522" y="125" class="placement" >Acknowledgement number (if ACK set)</text>
-<polygon points="42,135 162,135 162,165 42,165 42,135" class="placement" />
+<polygon points="42,135 162,135 162,165 42,165 42,135" class="placement"  />
 <text x="102" y="155" class="placement" >Data offset</text>
-<polygon points="162,135 252,135 252,165 162,165 162,135" class="placement" />
+<polygon points="162,135 252,135 252,165 162,165 162,135" class="placement"  />
 <text x="207" y="155" class="placement" >Reserved</text>
-<polygon points="252,135 282,135 282,165 252,165 252,135" class="placement" />
+<polygon points="252,135 282,135 282,165 252,165 252,135" class="placement"  />
 <text x="267" y="155" class="placement" >NS</text>
-<polygon points="282,135 312,135 312,165 282,165 282,135" class="placement" />
+<polygon points="282,135 312,135 312,165 282,165 282,135" class="placement"  />
 <text x="297" y="155" class="placement" >CWR</text>
-<polygon points="312,135 342,135 342,165 312,165 312,135" class="placement" />
+<polygon points="312,135 342,135 342,165 312,165 312,135" class="placement"  />
 <text x="327" y="155" class="placement" >ECE</text>
-<polygon points="342,135 372,135 372,165 342,165 342,135" class="placement" />
+<polygon points="342,135 372,135 372,165 342,165 342,135" class="placement"  />
 <text x="357" y="155" class="placement" >URG</text>
-<polygon points="372,135 402,135 402,165 372,165 372,135" class="placement" />
+<polygon points="372,135 402,135 402,165 372,165 372,135" class="placement"  />
 <text x="387" y="155" class="placement" >ACK</text>
-<polygon points="402,135 432,135 432,165 402,165 402,135" class="placement" />
+<polygon points="402,135 432,135 432,165 402,165 402,135" class="placement"  />
 <text x="417" y="155" class="placement" >PSH</text>
-<polygon points="432,135 462,135 462,165 432,165 432,135" class="placement" />
+<polygon points="432,135 462,135 462,165 432,165 432,135" class="placement"  />
 <text x="447" y="155" class="placement" >RST</text>
-<polygon points="462,135 492,135 492,165 462,165 462,135" class="placement" />
+<polygon points="462,135 492,135 492,165 462,165 462,135" class="placement"  />
 <text x="477" y="155" class="placement" >SYN</text>
-<polygon points="492,135 522,135 522,165 492,165 492,135" class="placement" />
+<polygon points="492,135 522,135 522,165 492,165 492,135" class="placement"  />
 <text x="507" y="155" class="placement" >FIN</text>
-<polygon points="522,135 1002,135 1002,165 522,165 522,135" class="placement" />
+<polygon points="522,135 1002,135 1002,165 522,165 522,135" class="placement"  />
 <text x="762" y="155" class="placement" >Window size</text>
-<polygon points="42,165 522,165 522,195 42,195 42,165" class="placement" />
+<polygon points="42,165 522,165 522,195 42,195 42,165" class="placement"  />
 <text x="282" y="185" class="placement" >Checksum</text>
-<polygon points="522,165 1002,165 1002,195 522,195 522,165" class="placement" />
+<polygon points="522,165 1002,165 1002,195 522,195 522,165" class="placement"  />
 <text x="762" y="185" class="placement" >Urgent pointer (if URG set)</text>
-<polygon points="42,195 1002,195 1002,285 42,285 42,225 42,225 42,195" class="placement" />
+<polygon points="42,195 1002,195 1002,285 42,285 42,225 42,225 42,195" class="placement"  />
 <path d="M37,237 C42,232 42,242 47,237" class="breakmark" />
 <path d="M37,243 C42,238 42,248 47,243" class="breakmark" />
 <path d="M997,237 C1002,232 1002,242 1007,237" class="breakmark" />

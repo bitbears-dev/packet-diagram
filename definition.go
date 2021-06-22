@@ -93,6 +93,7 @@ type Placement struct {
 	Label          string                       `yaml:"label"`
 	Bits           *uint                        `yaml:"bits,omitempty"`
 	VariableLength *VariableLengthPlacementSpec `yaml:"variable-length,omitempty"`
+	Fill           *string                      `yaml:"fill,omitempty"`
 }
 
 type VariableLengthPlacementSpec struct {
